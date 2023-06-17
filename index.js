@@ -86,11 +86,13 @@ app.get('/persons', async (req, res) => {
 
 app.get('/persons/nearest', async (req, res) => {
 
-
     const {city} = req.query;
     const locatData =await geocodeCity(city)
 
-    console.log(city)
+    // console.log(city)
+    if(locatData){
+      res.send({msg:"Please Enter a valid Location"})
+    }
     const { latitude, longitude } = locatData;  
     const distances = [];
     for (const person of doctors) {
@@ -99,14 +101,22 @@ app.get('/persons/nearest', async (req, res) => {
   
       if (location) {
         const distance = calculateDistance(latitude, longitude, location.latitude, location.longitude);
-        distances.push({ person, distance });
+        if(distance<1000){
+          console.log(distance)
+          distances.push({ person, distance });
+        }
       }
     }
   
+  if(distances.length>=3){
     distances.sort((a, b) => a.distance - b.distance);
     const nearestPersons = distances.slice(0, 3).map(({ person }) => person);
   
     res.json(nearestPersons);
+  }else{
+    res.json(distances)
+  }
+
   });
 
 // Start the server
