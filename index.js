@@ -90,9 +90,9 @@ app.get('/persons/nearest', async (req, res) => {
     const locatData =await geocodeCity(city)
 
     // console.log(city)
-    if(locatData){
-      res.send({msg:"Please Enter a valid Location"})
-    }
+    // if(locatData){
+    //   res.send({msg:"Please Enter a valid Location"})
+    // }
     const { latitude, longitude } = locatData;  
     const distances = [];
     for (const person of doctors) {
