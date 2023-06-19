@@ -10,6 +10,7 @@ const API_KEY = '15106e32380f4441a9e659ec6346fa9c';
 const doctors = [
     {name:'Pawan kumar',age:21,city:"Patna",category:'Dentist'},
     {name:"Saurabh",age:25,city:"Delhi",category:'Cardio'},
+    {name:"Pankaj",age:25,city:"Delhi",category:'Dentist'},
     {name:"Aman Singh",age:33,city:"Mumbai",category:'Gastro'},
     {name:"Abshieak",age:26,city:'Noida',category:'Ayurveda'},
     {name:"Vivek",age:42,city:'Lucknow',category:'Dentist'} ,
@@ -107,7 +108,8 @@ app.get('/persons/nearest', async (req, res) => {
   
       if (location) {
         const distance = calculateDistance(latitude, longitude, location.latitude, location.longitude);
-        if(distance<1000){
+        console.log(distance)
+        if(distance<=0){
           // console.log(distance)
           distances.push({ person, distance });
         }
