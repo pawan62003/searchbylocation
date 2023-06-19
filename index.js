@@ -117,7 +117,11 @@ app.get('/persons/nearest', async (req, res) => {
   
     res.json(nearestPersons);
   }else{
-    res.json(distances)
+    distances.sort((a, b) => a.distance - b.distance);
+    const nearestPersons = distances.map(({ person }) => person);
+  
+    res.json(nearestPersons);
+    // res.json(distances)
   }
 }
 
